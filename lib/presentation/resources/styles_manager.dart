@@ -1,5 +1,6 @@
-import 'package:advanced_flutter_project/presentation/font_manager.dart';
 import 'package:flutter/material.dart';
+
+import 'font_manager.dart';
 
 abstract class Styles {
   static TextStyle styleLight(

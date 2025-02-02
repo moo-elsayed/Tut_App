@@ -1,8 +1,5 @@
-import 'package:advanced_flutter_project/presentation/color_manager.dart';
-import 'package:advanced_flutter_project/presentation/font_manager.dart';
-import 'package:advanced_flutter_project/presentation/styles_manager.dart';
-import 'package:advanced_flutter_project/presentation/theme_manager.dart';
 import 'package:flutter/material.dart';
+import '../presentation/resources/theme_manager.dart';
 
 class MyApp extends StatefulWidget {
   // named constructor
