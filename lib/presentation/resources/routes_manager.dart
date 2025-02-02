@@ -2,6 +2,7 @@ import 'package:advanced_flutter_project/presentation/forgetPassword_view/forget
 import 'package:advanced_flutter_project/presentation/login_view/login_view.dart';
 import 'package:advanced_flutter_project/presentation/main_view/main_view.dart';
 import 'package:advanced_flutter_project/presentation/register_view/register_view.dart';
+import 'package:advanced_flutter_project/presentation/resources/strings_manager.dart';
 import 'package:advanced_flutter_project/presentation/splash_view/splash_view.dart';
 import 'package:advanced_flutter_project/presentation/storeDetails_view/storeDetails_view.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class RouteGenerator {
     return MaterialPageRoute(
       builder: (context) => Scaffold(
         body: Center(
-          child: Text('No Route Found!'),
+          child: Text(AppStrings.noRouteFound),
         ),
       ),
     );
