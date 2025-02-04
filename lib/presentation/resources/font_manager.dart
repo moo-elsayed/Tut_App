@@ -13,7 +13,7 @@ class FontWeightManager {
 }
 
 class FontSizes {
-  static const double _factor = 1.3;
+  static const double _factor = 1.1;
 
   static const double s11 = 11.0 * _factor;
   static const double s12 = 12.0 * _factor;
