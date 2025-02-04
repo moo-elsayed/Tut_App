@@ -1,6 +1,7 @@
 import 'package:advanced_flutter_project/presentation/forgetPassword_view/forgetPassword_view.dart';
 import 'package:advanced_flutter_project/presentation/login_view/login_view.dart';
 import 'package:advanced_flutter_project/presentation/main_view/main_view.dart';
+import 'package:advanced_flutter_project/presentation/onBoarding_view/onBoarding_view.dart';
 import 'package:advanced_flutter_project/presentation/register_view/register_view.dart';
 import 'package:advanced_flutter_project/presentation/resources/strings_manager.dart';
 import 'package:advanced_flutter_project/presentation/splash_view/splash_view.dart';
@@ -12,6 +13,7 @@ class Routes {
   static const String loginScreen = '/login';
   static const String registerScreen = '/register';
   static const String forgetPasswordScreen = '/forgetPassword';
+  static const String onBoardingScreen = '/onBoarding';
   static const String mainScreen = '/main';
   static const String storeDetailsScreen = '/storeDetails';
 }
@@ -42,6 +44,10 @@ class RouteGenerator {
       case Routes.mainScreen:
         return MaterialPageRoute(
           builder: (context) => MainView(),
+        );
+      case Routes.onBoardingScreen:
+        return MaterialPageRoute(
+          builder: (context) => OnBoardingView(),
         );
       default:
         return undefinedRoute();

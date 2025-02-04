@@ -40,6 +40,8 @@ class ThemeManager {
           fontSize: FontSizes.s16,
           color: ColorManager.darkGray,
         ),
+        bodyLarge: Styles.styleRegular(
+            fontSize: FontSizes.s14, color: ColorManager.darkGray),
       ),
       inputDecorationTheme: InputDecorationTheme(
         contentPadding: EdgeInsets.all(8),
