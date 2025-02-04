@@ -1,5 +1,6 @@
 import 'package:advanced_flutter_project/presentation/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'color_manager.dart';
 import 'font_manager.dart';
@@ -22,6 +23,10 @@ class ThemeManager {
         color: ColorManager.primary,
         centerTitle: true,
         elevation: 4,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: ColorManager.white,
+          statusBarIconBrightness: Brightness.dark,
+        ),
       ),
       buttonTheme: ButtonThemeData(
         buttonColor: ColorManager.primary,

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:advanced_flutter_project/presentation/resources/constants_manager.dart';
 import 'package:advanced_flutter_project/presentation/resources/routes_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../resources/images_manager.dart';
 import '../resources/color_manager.dart';
 
@@ -45,7 +46,14 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: ColorManager.primary,
+          statusBarIconBrightness: Brightness.light,
+        ),
+      ),
       backgroundColor: ColorManager.primary,
       body: Center(
         child: Image(

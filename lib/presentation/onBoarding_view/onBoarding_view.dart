@@ -1,10 +1,18 @@
+import 'dart:developer';
+
+import 'package:advanced_flutter_project/presentation/onBoarding_view/widgets/onBoarding_body.dart';
 import 'package:advanced_flutter_project/presentation/resources/images_manager.dart';
 import 'package:advanced_flutter_project/presentation/resources/strings_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../resources/color_manager.dart';
+import '../resources/constants_manager.dart';
+import '../resources/font_manager.dart';
+import '../resources/routes_manager.dart';
+import '../resources/styles_manager.dart';
+import 'classes/slider.dart';
 
 class OnBoardingView extends StatefulWidget {
   const OnBoardingView({super.key});
@@ -43,9 +51,7 @@ class _OnBoardingViewState extends State<OnBoardingView> {
       backgroundColor: ColorManager.white,
       appBar: AppBar(
         backgroundColor: ColorManager.white,
-        systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: ColorManager.white,
-            statusBarBrightness: Brightness.dark),
+        elevation: 0,
       ),
       body: PageView.builder(
         controller: _pageController,
@@ -58,49 +64,112 @@ class _OnBoardingViewState extends State<OnBoardingView> {
           sliderObject: _list[index],
         ),
       ),
-    );
-  }
-}
-
-class OnboardingBody extends StatelessWidget {
-  const OnboardingBody({super.key, required this.sliderObject});
-
-  final SliderObject sliderObject;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 38),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            sliderObject.title,
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
-          Text(
-            sliderObject.subTitle,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          SizedBox(
-            height: 35,
-          ),
-          SvgPicture.asset(sliderObject.image),
-          SizedBox(
-            height: 123,
-          ),
-        ],
+      bottomSheet: Container(
+        color: ColorManager.white,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    RouteGenerator.getRoute(
+                      RouteSettings(name: Routes.loginScreen),
+                    ),
+                  );
+                },
+                child: Text(
+                  AppStrings.skip,
+                  style: Styles.styleMedium(
+                    fontSize: FontSizes.s16,
+                    color: ColorManager.primary,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              color: ColorManager.primary,
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      int previousIndex = _getPreviousIndex();
+                      _pageController.animateToPage(
+                        previousIndex,
+                        duration: Duration(
+                            milliseconds: AppConstants.sliderAnimateDuration),
+                        curve: Curves.linear,
+                      );
+                      setState(() {
+                        _currentIndex = previousIndex;
+                      });
+                    },
+                    child: SizedBox(
+                      height: 28,
+                      width: 28,
+                      child: SvgPicture.asset(
+                        ImagesManager.leftArrowIcon,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    spacing: 19,
+                    children: List.generate(
+                      _list.length,
+                      (index) {
+                        return _currentIndex == index
+                            ? SvgPicture.asset(ImagesManager.hollowCircleIcon)
+                            : SvgPicture.asset(ImagesManager.solidCircleIcon);
+                      },
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      int nextIndex = _getNextIndex();
+                      _pageController.animateToPage(
+                        nextIndex,
+                        duration: Duration(
+                            milliseconds: AppConstants.sliderAnimateDuration),
+                        curve: Curves.linear,
+                      );
+                      setState(() {
+                        _currentIndex = nextIndex;
+                      });
+                    },
+                    child: SizedBox(
+                      height: 28,
+                      width: 28,
+                      child: SvgPicture.asset(
+                        ImagesManager.rightArrowIcon,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
-}
 
-class SliderObject {
-  String title;
-  String subTitle;
-  String image;
+  int _getPreviousIndex() {
+    int previousIndex = _currentIndex - 1;
+    if (previousIndex == -1) previousIndex = _list.length - 1;
+    log(previousIndex.toString());
+    return previousIndex;
+  }
 
-  SliderObject(
-      {required this.title, required this.subTitle, required this.image});
+  int _getNextIndex() {
+    int nextIndex = _currentIndex + 1;
+    if (nextIndex == _list.length) nextIndex = 0;
+    log(nextIndex.toString());
+    return nextIndex;
+  }
 }
